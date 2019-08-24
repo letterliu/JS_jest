@@ -22,7 +22,7 @@ function ticketingSystem() {
   function formatData(data) {
     // 資料瞥除有效正整數以外所有數值
     let validNull = !data.trim();
-    const ELIMINATEDATA = /[^\d*]/;
+    const ELIMINATEDATA = /[^\d*]|^[0-9]{3,}$/;
     let invalidData = ELIMINATEDATA.test(data);
     if (validNull || invalidData) {
       throw Error('格式錯誤，請重新輸入有效的正整數。');

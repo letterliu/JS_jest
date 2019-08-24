@@ -1,55 +1,68 @@
+
 /*
 使用者輸入兩個整數，將它們分別除以 3，
 判斷餘數是否相同，
 若相同，則於螢幕上顯示「餘數相同」。
 */
 
-/*
-流程：1.條件順序 2.有效命名 3.排除因素 4.用戶操作 5.使用回饋
-判斷事件： 1.同一事件(關聯) 2.不同事件(獨立)
-排除： 1.負值 2.字串 3.未輸入及送出(空) 4.任何符號 5.整數
-*/
-
-module.exports = congruentNumber;
-
-function congruentNumber(integerArray) {
-
-  // let integerArray = process.argv.slice(2, 4);
-  console.log(integerArray);
-
-  // 正則表達式 英文 負值 浮點數
-  let eliminate = /[a-zA-z-\\d\.\\d]/;
-  let invalidValue = eliminate.test(integerArray);
-
-  if (invalidValue) {
-    console.log('請重新輸入有效的正整數');
-    return;
-  }
-
-  //判斷餘數為 true false
-  let benchmark = 3;
-  let answer = integerArray.map(value => value % benchmark).reduce((accumulator, currentValue) => accumulator === currentValue);
-  // console.log(answer);
-
-  if (answer) {
-    console.log('恭喜！條件符合餘數相同');
-  } else {
-    console.log('加油！請再挑戰一次');
+class FormatError extends Error {
+  constructor(msg) {
+    super(msg);
   }
 }
-// )();
 
+congruentNumber();
+function congruentNumber() {
+  try {
+    const RECEIVEDATA = process.argv.slice(2, 4);
+    let validData = formatData(RECEIVEDATA);
+    const comparingNumbers = validateData(validData);
+    announceSystem(comparingNumbers);
+  }
+  catch (e) {
+    if (e instanceof FormatError) {
+      console.log(e.message);
+    } else {
+      console.log(e.message);
+    }
+  }
+  finally {
+    console.log('(つ´ω`)つ 好想餘數遊戲機，歡迎勇者挑戰！');
+  }
 
+  // 判斷除了空值以外，是否輸入兩個數值。
+  function formatData(data) {
+    let validNull = data.map(value => !value.trim()).some(value => value);
+    let invalidData = data.length !== 2;
+    if (validNull || invalidData) {
+      throw new FormatError(`[${data}] 帶有空值，請重新輸入兩筆資料。`);
+    } else {
+      return data;
+    }
+  }
 
-// let invalidValue = integerArray.every(value => value)
-// let integerA = process.argv[2];
-// let integerB = process.argv[3];
-// let benchmark = 3;
-// console.log(integerA);
-// console.log(integerB);
-// if (integerA % benchmark === integerB % benchmark) {
-//   console.log('餘數相同');
-// } else {
-//   console.log('餘數不同');
-// }
-;
+  function validateData(data) {
+    // 正則表達式 排除正負整數以外所有值
+    const ELIMINATEDATA = /[^1-9-]/;
+    let invalidData = data.map(value => ELIMINATEDATA.test(value)).some(value => value);  // true or false
+    // /-\d{1,}/
+    // console.log(invalidData);
+    if (invalidData) {
+      throw Error(`[${data}] 格式錯誤，請重新輸入兩個有效的正負整數。`);
+    } else {
+      let validData = data.map(value => Number(value));
+      return validData;
+    }
+  }
+
+  // 相比兩個數值餘數是否相同
+  function announceSystem(comparingNumbers) {
+    const benchmark = 3;
+    let result = comparingNumbers.map(value => value % benchmark).reduce((accumulator, currentValue) => accumulator === currentValue);
+    if (result) {
+      console.log(`[${comparingNumbers}] 恭喜！條件符合餘數相同，闖關成功。`);
+    } else {
+      console.log(`[${comparingNumbers}] 殘念！再接再勵，請試著再挑戰一次。`);
+    }
+  }
+}

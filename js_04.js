@@ -3,8 +3,8 @@
 一個數列的所有元素加起來就稱為「級數」，此為「發散級數」。
 */
 
-(function DivergentSeries() {
-
+DivergentSeries();
+function DivergentSeries() {
   let integer = process.argv.slice(2, 3);
   console.log(integer);
   // 正則表達式 英文 負值 浮點數 零值
@@ -39,29 +39,4 @@
       return number + seriesSum(number - 1);
     }
   }
-})();
-
-
-
-
-
-  // let a = seriesSum(referenceNumber);
-
-  // console.log(`發散級數總和: ${a}`);
-
-  // let eliminate = /^[0a-zA-Z\-\.].*/;
-
-
-// let integer = process.argv[2];
-
-// let seriesSum = 0;
-// let b = 0;
-// for (let i = 1; i <= integer; i++) {
-//   if (i > 1 && i % 2) {
-//     let negative = ~(i - 1);
-//     seriesSum += negative;
-//     continue;
-//   }
-//   seriesSum += i;
-// }
-// console.log(seriesSum);
+}

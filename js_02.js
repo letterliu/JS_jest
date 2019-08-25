@@ -43,10 +43,8 @@ function congruentNumber() {
 
   function validateData(data) {
     // 正則表達式 排除正負整數以外所有值
-    const ELIMINATEDATA = /[^1-9-]/;
+    const ELIMINATEDATA = /[^0-9]|^[^1-9]|-\d{0}$/;
     let invalidData = data.map(value => ELIMINATEDATA.test(value)).some(value => value);  // true or false
-    // /-\d{1,}/
-    // console.log(invalidData);
     if (invalidData) {
       throw Error(`[${data}] 格式錯誤，請重新輸入兩個有效的正負整數。`);
     } else {

@@ -5,38 +5,45 @@
 
 DivergentSeries();
 function DivergentSeries() {
-  let integer = process.argv.slice(2, 3);
-  console.log(integer);
-  // 正則表達式 英文 負值 浮點數 零值
-  let eliminate = /[a-zA-Z-\\d\.\\d]/;
-  let nought = /^[0].*/;
-  let invalidValue = eliminate.test(integer);
-  let zero = nought.test(integer);
-
-  if (invalidValue || zero) {
-    console.log('請重新輸入有效的正整數');
-    return;
+  try {
+    const RECEIVEDATA = process.argv[2];
+    const referenceNumber = formatData(RECEIVEDATA);
+    const result = seriesSum(referenceNumber);
+    statistic(result);
+  }
+  catch (e) {
+    console.log(e.message);
+  }
+  finally {
+    console.log('(๑•̀ω•́)ノ好想發散級數遊戲，全新挑戰。');
   }
 
-  // 陣列轉為有效數值
-  let referenceNumber = Number(integer);
-
-  //統計數值
-  function statistic(referenceNumber) {
-    let grandTotal = seriesSum(referenceNumber);
-    console.log(`發散級數總和: ${grandTotal}`);
-  }
-  statistic(referenceNumber);
-
-  // 發散級數遞迴總和
-  function seriesSum(number) {
-    let benchmark = 2;
-    if (!number) {
-      return number;
-    } else if ((number > 1) && (number % benchmark)) {
-      return -(number) + seriesSum(number - 1);
+  function formatData(data) {
+    // 正則表達式 資料瞥除有效正整數以外所有數值 
+    const ELIMINATEDATA = /[^0-9]|^[^1-9]/;
+    let invalidData = ELIMINATEDATA.test(data);
+    if (invalidData) {
+      throw Error('請重新輸入有效的正整數。');
     } else {
-      return number + seriesSum(number - 1);
+      let validData = Number(data);
+      console.log(`輸入有效數值：${validData}`);
+      return validData;
     }
+  }
+
+  // 發散級數遞迴
+  function seriesSum(integer) {
+    if (!integer) {
+      return integer;
+    } else if ((integer > 1) && (integer % 2)) {
+      return -(integer) + seriesSum(--integer);
+    } else {
+      return integer + seriesSum(--integer);
+    }
+  }
+
+  //統計級數結果
+  function statistic(result) {
+    console.log(`發散級數總和: ${result}`);
   }
 }

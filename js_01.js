@@ -34,13 +34,11 @@ function goodIdeasCinema() {
 
 //資料格式過濾
 function validateData(data) {
-  let invalidData = /[^0-9]/;
-  // let invalidData = /[a-zA-Z\-\.]/;
-  invalidData = invalidData.test(data); // true or false
+  let ELIMINATEDATA = /[^0-9]/;
+  invalidData = ELIMINATEDATA.test(data); // true or false
   let validNull = !data.trim();
   if (invalidData) {
     throw new FormatError('格式錯誤，請重新輸入有效的正整數。');
-    // return dat。;
   } else if (validNull) {
     throw Error('無任何資料，請重新輸入。');
   } else {

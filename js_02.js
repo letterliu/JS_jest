@@ -16,8 +16,9 @@ function congruentNumber() {
   try {
     const RECEIVEDATA = process.argv.slice(2, 4);
     let validData = formatData(RECEIVEDATA);
-    const comparingNumbers = validateData(validData);
-    announceSystem(comparingNumbers);
+    let comparingNumbers = validateData(validData);
+    const result = congruentEqual(comparingNumbers);
+    revealAnswer(result);
   }
   catch (e) {
     if (e instanceof FormatError) {
@@ -54,13 +55,19 @@ function congruentNumber() {
   }
 
   // 相比兩個數值餘數是否相同
-  function announceSystem(comparingNumbers) {
+  function congruentEqual(comparingNumbers) {
     const benchmark = 3;
     let result = comparingNumbers.map(value => value % benchmark).reduce((accumulator, currentValue) => accumulator === currentValue);
+    console.log(`相比數值：${comparingNumbers[0]} 和 ${comparingNumbers[1]}，程式運算中。`);
+    return result;
+  }
+
+  // 餘數是否相同，公佈最後答案
+  function revealAnswer(result) {
     if (result) {
-      console.log(`[${comparingNumbers}] 恭喜！條件符合餘數相同，闖關成功。`);
+      console.log('恭喜！條件符合餘數相同，闖關成功。');
     } else {
-      console.log(`[${comparingNumbers}] 殘念！再接再勵，請試著再挑戰一次。`);
+      console.log('殘念！餘數相比出現差異，請試著再挑戰一次。');
     }
   }
 }

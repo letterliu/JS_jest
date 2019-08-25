@@ -23,7 +23,7 @@ function DivergentSeries() {
     const ELIMINATEDATA = /[^0-9]|^[^1-9]/;
     let invalidData = ELIMINATEDATA.test(data);
     if (invalidData) {
-      throw Error('請重新輸入有效的正整數。');
+      throw Error('格式錯誤，請重新輸入有效的正整數。');
     } else {
       let validData = Number(data);
       console.log(`輸入有效數值：${validData}`);
@@ -35,10 +35,10 @@ function DivergentSeries() {
   function seriesSum(integer) {
     if (!integer) {
       return integer;
-    } else if ((integer > 1) && (integer % 2)) {
+    } else if ((integer > 1) && (integer % 2)) {// 數字 1 是特例，判斷奇數遞迴
       return -(integer) + seriesSum(--integer);
     } else {
-      return integer + seriesSum(--integer);
+      return integer + seriesSum(--integer);// 判斷偶數遞迴
     }
   }
 

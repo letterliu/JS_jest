@@ -4,76 +4,67 @@ function umleven(n) 來求算 2*4 + 4*6 + 6*8...+(n-2)*n
 (n最小為 4, 只會出現偶數)
 */
 
-let integer = process.argv.slice(2, 3);
-// console.log(integer);
-
-// 正則表達式 英文 負值 浮點數 零值
-let eliminate = /[a-zA-Z-\\d\.\\d]/;
-let nought = /^[0].*/;
-eliminate = eliminate.test(integer);
-nought = nought.test(integer);
-
-// 陣列轉為有效數值
-let referenceValue = Number(integer);
-//  標點符號
-let punctuation = Number.isNaN(referenceValue);
-
-// 判斷失效數值
-if (eliminate || nought || punctuation || !referenceValue) {
-  console.log('請重新輸入有效的正整數');
-  return;
-}
-
-// 判斷 n 最小為 4 並為偶數值
-if (referenceValue < 4 || referenceValue % 2) {
-  console.log('請重新輸入大於或等於 4 以上偶數值');
-  return;
-}
-
-console.log(`有效正整數： ${referenceValue}`);
-
-// 執行打印整數總和
-function integerSum(number) {
-  let result = recursion(number);
-  console.log(`遞迴函數總和： ${result}`);
-}
-integerSum(referenceValue);
-
-// 遞迴運算器
-function recursion(number) {
-  if (!number) {
-    return number;
-  } else {
-    return number * (number - 2) + recursion(number - 2);
+class EvenError extends Error {
+  constructor(msg) {
+    super(msg);
   }
 }
 
+recursionGame();
+function recursionGame() {
+  try {
+    const RECEIVEDATA = process.argv[2];
+    let validData = formatData(RECEIVEDATA);
+    let referenceNumber = evenNumber(validData);
+    const result = recursionSum(referenceNumber);
+    statistic(result);
+  }
+  catch (e) {
+    if (e instanceof EvenError) {
+      console.log(e.message);
+    } else {
+      console.log(e.message);
+    }
+  }
+  finally {
+    console.log('ヽ(✿ﾟ▽ﾟ)ノ 好想遞迴函數遊戲，全新上架中。');
+  }
 
+  // 資料保留有效正整數以外所有數值
+  function formatData(data) {
+    const ELIMINATEDATA = /[^0-9]/;
+    let invalidData = ELIMINATEDATA.test(data);
+    if (invalidData) {
+      throw Error(`輸入值[${data}] => 格式錯誤，請重新輸入有效的正整數。`);
+    } else {
+      let validData = Number(data);
+      return validData;
+    }
+  }
 
+  // 判斷 n 最小為 4 並為偶數正整數
+  function evenNumber(integer) {
+    const ELIMINATEVALUE = /^[0-3]{1}/;
+    let invalidValue = ELIMINATEVALUE.test(integer);
+    if (invalidValue || integer % 2) {
+      throw new EvenError(`輸入值[${integer}] => 請重新輸入大於或等於 4 以上偶數值。`);
+    } else {
+      console.log(`輸入偶數值[${integer}] => 符合條件運算中。`);
+      return integer;
+    }
+  }
 
+  // 遞迴運算器
+  function recursionSum(number) {
+    if (!number) {
+      return number;
+    } else {
+      return number * (number - 2) + recursionSum(number - 2);
+    }
+  }
 
-
-
-// let num = process.argv[2];
-// num = Number(num);
-// function peopleCount(num) {
-//   let a = factorial(num);
-//   console.log(a);
-// }
-// peopleCount(num);
-
-// function factorial(num) {
-//   if (num === 1) {
-//     return num
-//   } else {
-//     return num * factorial(num - 1)
-//   }
-// }
-
-// function factorial(num) {
-//   if (!num) {
-//     return num;
-//   } else {
-//     return num * (num - 2) + factorial(num - 2);
-//   }
-// }
+  // 執行打印整數總和
+  function statistic(result) {
+    console.log(`遞迴函數總和：${result}`);
+  }
+}

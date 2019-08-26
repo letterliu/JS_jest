@@ -44,7 +44,7 @@ function recursionGame() {
 
   // 判斷 n 最小為 4 並為偶數正整數
   function evenNumber(integer) {
-    const ELIMINATEVALUE = /^[0-3]{1}/;
+    const ELIMINATEVALUE = /^[0-3]{1}$/;
     let invalidValue = ELIMINATEVALUE.test(integer);
     if (invalidValue || integer % 2) {
       throw new EvenError(`輸入值[${integer}] => 請重新輸入大於或等於 4 以上偶數值。`);

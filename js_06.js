@@ -3,182 +3,73 @@
 輸出第一個和第三個名字的單數個字母。
 */
 
-//判斷空值 null undefined ...
-
-// 判斷輸出格式是否正確
-let member = process.argv.slice(2, 6);
-console.log(member);
-
-// 排除英文字母以外格式
-let dataFormat = /[A-Za-z]/;
-let numberFormat = /[\d\-\.]/;
-let accurateData = dataFormat.test(member);
-let precisionNumber = numberFormat.test(member);
-
-// 提示錯誤格式
-if (!accurateData || precisionNumber) {
-  console.log('格式錯誤，請重新輸入英文名字');
-  return;
+class FormatError extends Error {
+  constructor(msg) {
+    super(msg);
+  }
 }
 
-// 參與會員需為四位
-let attendance = 4;
+alphabetGame();
+function alphabetGame() {
+  try {
+    const RECEIVEDATA = process.argv.slice(2, 6);
+    let validData = formatData(RECEIVEDATA);
+    let members = attendance(validData);
+    let goldMembers = selection(members);
+    const result = oddCharacters(goldMembers);
+    announced(result);
+  }
+  catch (e) {
+    if (e instanceof FormatError) {
+      console.log(e.message);
+    } else {
+      console.log(e.message);
+    }
+  }
+  finally {
+    console.log('(❛◡❛✿) 好想認識字母表，從挑戰名字開始 !! Fighting !!');
+  }
 
-if (member.length !== attendance) {
-  console.log('請重新輸入四位會員英文名字');
-  return;
+  // 判斷格式是否全英文字母
+  function formatData(data) {
+    const ELIMINATEDATA = /[^a-z]/i;
+    let invalidData = data.map(value => ELIMINATEDATA.test(value)).some(value => value);
+    if (invalidData) {
+      throw new FormatError(`輸入值[${data}] => 格式錯誤，請重新輸入有效英文字母。`);
+    } else {
+      return data;
+    }
+  }
+
+  // 參與會員需要四位
+  function attendance(members) {
+    let group = 4;
+    if (members.length === group) {
+      return members;
+    } else {
+      throw Error(`遊戲人數 ${members.length} 人 => 尚未達標，請重新輸入參與挑戰共四位英文名字。`);
+    }
+  }
+
+  // // 判斷符合身份的黃金會員
+  function selection(members) {
+    let goldMembers = members.filter((list, index) => ++index % 2);
+    console.log(`符合挑選資格：${goldMembers[0]} 和 ${goldMembers[1]}。`);
+    return goldMembers;
+  }
+
+  // // 黃金會員名字拆解取出奇數字母
+  function oddCharacters(name) {
+    let characters = name.map(letters => letters.split('').filter((letters, index) => ++index % 2));
+    let result = characters.reduce((previous, next) => previous.concat(next)).join('');
+    return result;
+  }
+
+  function announced(result) {
+    console.log(`隨機創建新單字：[${result}]，挑戰成功。`);
+  }
 }
 
-// // 判斷符合身份的黃金會員
-let goldeMember = member.filter((list, index) => !(index % 2));
-console.log(goldeMember);
-
-// // 名字拆解取出奇數字母
-let characters = goldeMember.map(list => list.split('').filter((letter, index) => !(index % 2))).join();
-console.log(characters);
-
-
-
-
-
-
-
-
-
-
-// // 判斷輸出格式是否正確
-// let member = process.argv.slice(2, 6);
-// console.log(member);
-
-// let invalidValue = !member.every(value => value);
-// console.log(invalidValue);
-
-// // 判斷是否為數字
-// let numberFormat = /\d/;
-// let attendance = 4;
-
-// if (invalidValue || numberFormat.test(member) || member.length !== attendance) {
-//   console.log('請重新輸入四位會員英文名字');
-//   return;
-// }
-
-// // 判斷符合身份的黃金會員
-// let goldeMember = member.filter((list, index) => !(index % 2));
-// // console.log(goldeMember);
-
-// // 名字拆解取出單字
-// let characters = goldeMember.map(list => list.split('').filter((letter, index) => !(index % 2))).join();
-// console.log(characters);
-
-
-
-
-
-
-
-
-
-// 判斷是否空值
-// let b = member.filter(value => value).every(value => value);
-// console.log(b);
-
-// let b = member.filter(value => !value).every(value => !value);
-// console.log(b);
-
-//過濾空字符、null、undefined
-// let invalidValue = !member.filter(value => !value);
-// console.log(b);
-
-// let invalidValue = member.filter(value => !value).every(value => value);
-// console.log(invalidValue);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// console.log(characters.join());
-// let printResult = characters.map(value => value.filter((value, index) => !(index % 2)));
-// console.log(printResult);
-
-// printResult.forEach();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// let group = member.filter(function (string, index) {
-//   return !(index % 2);
-// });
-
-// console.log(group);
-
-// let segmentation = group.map(function (string) {
-//   return string.split('');
-// });
-
-// console.log(segmentation);
-
-
-// for (var item of segmentation) {
-//   let newcomer = item.filter((item, index) => !(index % 2))
-//   console.log(newcomer);
-
-//   for (var dd of newcomer) {
-//     printResult = printResult + dd;
-//   }
-// }
-// console.log(printResult);
-
-
-// console.log(segmentation.join(''));
-
-
-// let newcomer = segmentation.filter(function (string, singleArrayIndex) {
-//   return singleArrayIndex % 2 !== 0;
-// });
-
-
-
-
-
-
-// let start= ['ruru','letter','nike'];
-// let printResult = "";
-// let result = start.filter((item,index)=>!(index%2))
-// let aa = result.map(item=>{
-//   return item.split('')
-// })
-
-
-
-// let start= ['ruru','letter','nike'];
-// let printResult = "";
-// let result = start.map((item,index)=>{
-//   if(!(index%2)){
-//     let stringToArray = item.split('')
-//     stringToArray = stringToArray.filter((singleArray,singleArrayIndex)=> singleArrayIndex%2 !== 0 )
-//     for(word of stringToArray){
-//       printResult= printResult+word;
-//     }
-//   }
-// })
-// console.log(printResult)
+// let characters = letters.map(list => list.split('').filter((letter, index) => !(index % 2))).join();
+// let cc = characters.reduce((prev, next) => [...prev, ...next]);
+// a.map((item,index)=>item.charAt());

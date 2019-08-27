@@ -30,7 +30,7 @@ function recursionGame() {
     console.log('ヽ(✿ﾟ▽ﾟ)ノ 好想遞迴函數遊戲，全新上架中。');
   }
 
-  // 資料保留有效正整數以外所有數值
+  // 資料瞥除有效正整數以外所有數值
   function formatData(data) {
     const ELIMINATEDATA = /[^0-9]/;
     let invalidData = ELIMINATEDATA.test(data);

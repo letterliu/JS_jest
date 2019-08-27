@@ -42,7 +42,7 @@ function DivergentSeries() {
     }
   }
 
-  //統計級數結果
+  // 統計級數結果
   function statistic(result) {
     console.log(`發散級數總和: ${result}`);
   }

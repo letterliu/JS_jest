@@ -26,9 +26,8 @@ const heartPattern = [
 rotateＭachine(heartPattern);
 function rotateＭachine(pattern) {
   let variationPattern = rotateLeft(pattern);
-  console.log(variationPattern);
-  // const result = variationPattern.map(pattern => pattern.reverse());
-  // result.forEach(element => console.log(element));
+  const result = variationPattern.map(pattern => pattern.reverse());
+  result.forEach(element => console.log(element));
 }
 
 // 陣列向左轉動90度

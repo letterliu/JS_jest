@@ -61,15 +61,15 @@ function alphabetGame() {
   // // 黃金會員名字拆解取出奇數字母
   function oddCharacters(name) {
     let characters = name.map(letters => letters.split('').filter((letters, index) => ++index % 2));
-    let result = characters.reduce((previous, next) => previous.concat(next)).join('');
+    let result = characters.reduce((prev, next) => [...prev, ...next]);
     return result;
   }
 
   function announced(result) {
-    console.log(`隨機創建新單字：[${result}]，挑戰成功。`);
+    console.log(`隨機取樣新字母：[${result}]，您都唸對了嗎？`);
   }
 }
 
 // let characters = letters.map(list => list.split('').filter((letter, index) => !(index % 2))).join();
-// let cc = characters.reduce((prev, next) => [...prev, ...next]);
+// let result = characters.reduce((previous, next) => previous.concat(next)).join('');
 // a.map((item,index)=>item.charAt());

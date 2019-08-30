@@ -7,7 +7,7 @@
 
 // let member = process.argv.slice(2, 9);
 const integer = [3, 50, 0, 13, 2, 4, 11];
-console.log(arrayA);
+// console.log(arrayA);
 
 arrayA.forEach((item, index) => {
   if (isPrime(item)) {

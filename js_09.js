@@ -11,14 +11,14 @@ class formatError extends Error {
   }
 }
 
-gameMachine();
-function gameMachine() {
+addendGame();
+function addendGame() {
   try {
-    const arrayA = [2, 3, 1, 7, 9];
+    const termArray = [2, 3, 1, 7, 9];
     const RECEIVEDATA = process.argv.slice(2, 7);
     let validData = formatData(RECEIVEDATA);
     let referenceArray = arrayLength(validData);
-    const mergeResult = mergeAdder(arrayA, referenceArray);
+    const mergeResult = mergeAdder(termArray, referenceArray);
     mergeResult.forEach((element, index) => console.log(`第 ${++index} 排序 => 數值加總：${element}`));
   }
   catch (e) {
@@ -56,86 +56,24 @@ function gameMachine() {
   }
 
   // 陣列合併相加器
-  function mergeAdder(arrayA, referenceArray) {
+  function mergeAdder(termArray, referenceArray) {
     let mergeResult = referenceArray.reduce((accumulator, digit, index) => {
       accumulator[index] = accumulator[index] + digit;
       return accumulator;
-    }, arrayA);
+    }, termArray);
     return mergeResult;
   }
 }
 
-// ------------------------
+//--------------------------------------------------------------------------
 
-// {
-//   const arrayA = [2, 3, 1, 7, 9];
-//   const arrayB = [8, 7, 9, 3, 1];
-
-//   let mergeResult = arrayA.reduce((accumulator, digit, index) => {
-//     accumulator[index] = accumulator[index] + digit;
-//     console.log(accumulator);
-//     return accumulator;
-//   }, arrayB);
-
-//   console.log(mergeResult);
-// }
-
-
-
-
-
-
-
-// let c = arrayA.reduce((accumulator, integer, index) => {
-//   let result = integer + arrayB[index];
-//   accumulator.push(result);
-
-//   // console.log(accumulator);
+// let result = arrayA.reduce((accumulator, integer, index) => {
+//   let sum = integer + arrayB[index];
+//   accumulator.push(sum);
 //   return accumulator;
 // }, []);
-
-// console.log(c);
-
-
+// console.log(result);
 
 // let result = arrayA.map((integer, index) => integer + arrayB[index]);
 // console.log(result);
-
-
-
-
-
-
-
-
-
-
-
-
-// newArray = newArray.push(arrayA.concat(arrayB));
-// console.log(newArray);
-
-
-// let newArray = [];
-
-// result = [10, 10, 10, 10, 10];
-// let a = arrayA.concat(arrayB);
-// console.log(a);
-// let a = [[2, 3, 1, 7, 9], [8, 7, 9, 3, 1]];
-// let a = [2, 3, 1, 7, 9];
-// console.log(a);
-
-
-// let b = a.map(item => item[inedx] * 2));
-// console.log(b);
-
-
-// let b = a.filter((item, index) => item[index]).map((item) =>
-//   item.reduce((accumulator, currentValue) =>
-//     accumulator + currentValue));
-// console.log(b);
-
-
-// let c = a.reduce((accumulator, currentValue) => accumulator + currentValue);
-// console.log(c);
 

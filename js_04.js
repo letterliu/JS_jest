@@ -3,32 +3,34 @@
 一個數列的所有元素加起來就稱為「級數」，此為「發散級數」。
 */
 
-DivergentSeries();
-function DivergentSeries() {
+// 接收資料打印結果
+const result = DivergentSeries(process.argv[2]);
+console.info('%s', result);
+
+function DivergentSeries(receivedata) {
+  // 主程式，例外時拋出錯誤資訊
   try {
-    const RECEIVEDATA = process.argv[2];
-    const referenceNumber = formatData(RECEIVEDATA);
-    const result = seriesSum(referenceNumber);
-    statistic(result);
+    const referenceNumber = formatData(receivedata);
+    const answer = seriesSum(referenceNumber);
+    return statistic(answer);
   }
   catch (e) {
-    console.log(e.message);
+    return e.message;
   }
   finally {
-    console.log('(๑•̀ω•́)ノ好想發散級數遊戲，全新挑戰。');
+    console.info('(๑•̀ω•́)ノ好想發散級數遊戲，全新挑戰。');
   }
 
   function formatData(data) {
     // 正則表達式 資料瞥除有效正整數以外所有數值 
-    const ELIMINATEDATA = /[^0-9]|^[^1-9]/;
-    let invalidData = ELIMINATEDATA.test(data);
+    const ELIMINATEDATA = /[^0-9]|^0$/;
+    const invalidData = ELIMINATEDATA.test(data);
     if (invalidData) {
-      throw Error('格式錯誤，請重新輸入有效的正整數。');
-    } else {
-      let validData = Number(data);
-      console.log(`輸入有效數值：${validData}`);
-      return validData;
+      throw Error(`[${data}] 格式錯誤，請重新輸入有效的正整數。`);
     }
+    const validData = Number(data);
+    console.info(`輸入有效數值：${validData}`);
+    return validData;
   }
 
   // 發散級數遞迴
@@ -43,7 +45,7 @@ function DivergentSeries() {
   }
 
   // 統計級數結果
-  function statistic(result) {
-    console.log(`發散級數總和: ${result}`);
+  function statistic(answer) {
+    return `發散級數總和: ${answer}`;
   }
 }

@@ -5,31 +5,46 @@
 讓使用者自行輸入年齡，並判斷門票價錢。
 */
 
-ticketingSystem();
-function ticketingSystem() {
+// 新增newError模式
+class formatError extends Error {
+  constructor(msg) {
+    super(msg);
+  }
+}
+
+// 接收資料打印結果
+const result = ticketingSystem(process.argv[2]);
+console.info('%s', result);
+
+function ticketingSystem(receivedata) {
+  // 主程式，例外時拋出錯誤資訊
   try {
-    const RECEIVEDATA = process.argv[2];
-    const exactAge = formatData(RECEIVEDATA);
-    bookingTickets(exactAge);
+    const exactAge = formatData(receivedata);
+    return bookingTickets(exactAge);
   }
   catch (e) {
-    console.log(e.message);
+    if (e instanceof formatError) {
+      return e.message;
+    } else {
+      return e.message;
+    }
   }
   finally {
-    console.log('( ͡° ͜ʖ ͡°) 好想樂園暑假優惠中，歡迎蒞臨。');
+    console.info('( ͡° ͜ʖ ͡°) 好想樂園暑假優惠中，歡迎蒞臨。');
   }
 
   function formatData(data) {
-    // 資料瞥除有效正整數以外所有數值
-    let validNull = !data.trim();
-    const ELIMINATEDATA = /[^\d*]|^[0-9]{3,}$/;
-    let invalidData = ELIMINATEDATA.test(data);
-    if (validNull || invalidData) {
-      throw Error('格式錯誤，請重新輸入有效的正整數。');
-    } else {
-      let validData = Number(data);
-      return validData;
+    // 資料瞥除有效正整數以外所有數值，包含人瑞超過100歲。
+    const ELIMINATEDATA = /[^\d]|^[0-9]{3,}$/;
+    const invalidData = ELIMINATEDATA.test(data);
+    if (typeof data === 'undefined' || !data.trim()) {
+      throw Error(`[${data}] 帶有空值，請重新輸入資料。`);
     }
+    if (invalidData) {
+      throw new formatError('格式錯誤，請重新輸入有效的正整數。');
+    }
+    const validData = Number(data);
+    return validData;
   }
 
   function bookingTickets(exactAge) {
@@ -38,11 +53,11 @@ function ticketingSystem() {
     const seniorCitizen = 65;
     const ADMISSION = 400;
     const HALFPRICE = 0.5;
-    let concessionTicket = ADMISSION * HALFPRICE;
+    const concessionTicket = ADMISSION * HALFPRICE;
     if (childhood < exactAge && exactAge < seniorCitizen) {
-      console.log(`入場年齡：${exactAge} 歲，全票票價：${ADMISSION} 元`);
+      return `入場年齡：${exactAge} 歲，全票票價：${ADMISSION} 元`;
     } else {
-      console.log(`入場年齡：${exactAge} 歲，優待票價：${concessionTicket} 元`);
+      return `入場年齡：${exactAge} 歲，優待票價：${concessionTicket} 元`;
     }
   }
 }

@@ -7,23 +7,24 @@ module.exports = {
 };
 
 // 新增newError模式 
-class FormatError extends Error {
+class formatError extends Error {
   constructor(msg) {
     super(msg);
   }
 }
 
+// 接收資料打印結果
 const result = goodIdeasCinema(process.argv[2]);
 console.info('%s', result);
 
 function goodIdeasCinema(receivedata) {
-  //好想電影院主程式，例外時拋出錯誤資訊
+  // 好想電影院主程式，例外時拋出錯誤資訊
   try {
     const attendance = validateData(receivedata);
     return sneakPreview(attendance);
   }
   catch (e) {
-    if (e instanceof FormatError) {
+    if (e instanceof formatError) {
       return e.message;
     } else {
       return e.message;
@@ -34,13 +35,13 @@ function goodIdeasCinema(receivedata) {
   }
 }
 
-//資料格式過濾
+// 資料格式過濾數字以外
 function validateData(data) {
   const ELIMINATEDATA = /[^0-9]/;
   const invalidData = ELIMINATEDATA.test(data);
   const validNull = !data.trim();
   if (invalidData) {
-    throw new FormatError('格式錯誤，請重新輸入有效的正整數。');
+    throw new formatError('格式錯誤，請重新輸入有效的正整數。');
   }
   if (validNull) {
     throw Error('無任何資料，請重新輸入。');

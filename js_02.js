@@ -5,16 +5,19 @@
 若相同，則於螢幕上顯示「餘數相同」。
 */
 
-class FormatError extends Error {
+// 新增newError模式
+class formatError extends Error {
   constructor(msg) {
     super(msg);
   }
 }
 
+// 接收資料打印結果
 const result = congruentNumber(process.argv.slice(2, 4));
 console.info('%s', result);
 
 function congruentNumber(receivedata) {
+  // 主程式，例外時拋出錯誤資訊
   try {
     const validData = formatData(receivedata);
     const comparingNumbers = validateData(validData);
@@ -22,7 +25,7 @@ function congruentNumber(receivedata) {
     return revealAnswer(answer);
   }
   catch (e) {
-    if (e instanceof FormatError) {
+    if (e instanceof formatError) {
       return e.message;
     } else {
       return e.message;
@@ -32,19 +35,19 @@ function congruentNumber(receivedata) {
     console.info('(つ´ω`)つ 好想餘數遊戲機，歡迎勇者挑戰！');
   }
 
-  // 判斷除了空值以外，是否輸入兩個數值。
+  // 過濾空值以外，是否輸入兩個數值。
   function formatData(data) {
     const validNull = data.map(value => !value.trim()).some(value => value);
     // const validNull = data.includes('');
     const invalidLength = data.length !== 2;
     if (validNull || invalidLength) {
-      throw new FormatError(`[${data}] 帶有空值，請重新輸入兩筆資料。`);
+      throw new formatError(`[${data}] 帶有空值，請重新輸入兩筆資料。`);
     }
     return data;
   }
 
   function validateData(data) {
-    // 正則表達式 排除正負整數以外所有值
+    // 正則表達式 排除正負整數以外所有值，包含過濾零。
     const ELIMINATEDATA = /[^\d-]|^0$/;
     const invalidData = data.map(value => ELIMINATEDATA.test(value)).some(value => value);
     // const invalidData = data.includes('0');

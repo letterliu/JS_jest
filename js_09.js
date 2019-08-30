@@ -5,14 +5,17 @@ arr2[0]~arr2[4] 分別設值為 8,7,9,3,1，
 將 arr1 與 arr2 兩陣列對應項相加，列印出相加後的陣列。
 */
 
+// 新增newError模
 class formatError extends Error {
   constructor(msg) {
     super(msg);
   }
 }
 
+// 接收資料打印結果
 addendGame();
 function addendGame() {
+  // 主程式，例外時拋出錯誤資
   try {
     const termArray = [2, 3, 1, 7, 9];
     const RECEIVEDATA = process.argv.slice(2, 7);

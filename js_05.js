@@ -38,7 +38,7 @@ function recursionGame(receivedata) {
   function formatData(data) {
     const ELIMINATEDATA = /[^0-9]/;
     const invalidData = ELIMINATEDATA.test(data);
-    if (invalidData) {
+    if (invalidData || !data.trim()) {
       throw Error(`輸入值[${data}] => 格式錯誤，請重新輸入有效的正整數。`);
     }
     const validData = Number(data);
@@ -48,7 +48,7 @@ function recursionGame(receivedata) {
   // 判斷 n 最小為 4 並為偶數正整數
   function evenNumber(integer) {
     const ELIMINATEVALUE = /^[0-3]{1}$/;
-    let invalidValue = ELIMINATEVALUE.test(integer);
+    const invalidValue = ELIMINATEVALUE.test(integer);
     if (invalidValue || integer % 2) {
       throw new evenError(`輸入值[${integer}] => 請重新輸入大於或等於 4 以上偶數值。`);
     }

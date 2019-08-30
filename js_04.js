@@ -23,9 +23,9 @@ function DivergentSeries(receivedata) {
 
   function formatData(data) {
     // 正則表達式 資料瞥除有效正整數以外所有數值 
-    const ELIMINATEDATA = /[^0-9]|^0$/;
+    const ELIMINATEDATA = /[^0-9]|^0$/g;
     const invalidData = ELIMINATEDATA.test(data);
-    if (invalidData) {
+    if (invalidData || !data.trim()) {
       throw Error(`[${data}] 格式錯誤，請重新輸入有效的正整數。`);
     }
     const validData = Number(data);

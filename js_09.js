@@ -13,58 +13,64 @@ class formatError extends Error {
 }
 
 // 接收資料打印結果
-addendGame();
-function addendGame() {
-  // 主程式，例外時拋出錯誤資
+const result = addendGame(process.argv.slice(2, 7));
+console.info(result);
+
+function addendGame(receivedata) {
+  // 主程式，例外時拋出錯誤資訊
   try {
     const termArray = [2, 3, 1, 7, 9];
-    const RECEIVEDATA = process.argv.slice(2, 7);
-    let validData = formatData(RECEIVEDATA);
-    let referenceArray = arrayLength(validData);
+    const validData = formatData(receivedata);
+    const referenceArray = arrayLength(validData);
     const mergeResult = mergeAdder(termArray, referenceArray);
-    mergeResult.forEach((element, index) => console.log(`第 ${++index} 排序 => 數值加總：${element}`));
+    return announced(mergeResult);
   }
   catch (e) {
     if (e instanceof formatError) {
-      console.log(e.message);
+      return e.message;
     } else {
-      console.log(e.message);
+      return e.message;
     }
   }
   finally {
-    console.log(`(๑¯∀¯๑) 陣列加法遊戲：[ 2, 3, 1, 7, 9 ] 試著與輸入數值相加，返回皆同數值陣列。`);
+    console.info(`(๑¯∀¯๑) 陣列加法遊戲：[ 2, 3, 1, 7, 9 ] 試著與輸入數值相加，返回皆同數值陣列。`);
   }
 
   // 判斷格式是否全整數
   function formatData(data) {
     const ELIMINATEDATA = /[^\d-]/;
-    let invalidData = data.map(value => ELIMINATEDATA.test(value)).some(value => value);
-    if (invalidData) {
+    const invalidData = data.map(value => ELIMINATEDATA.test(value)).some(value => value);
+    const validNull = data.includes('');
+    if (invalidData || validNull) {
       throw new formatError(`輸入值[${data}] => 格式錯誤，請重新輸入有效整數。`);
-    } else {
-      let validData = data.map(value => Number(value));
-      return validData;
     }
+    const validData = data.map(value => Number(value));
+    return validData;
   }
 
   // 判斷是否正確輸入數值，長度為 5 新陣列。
   function arrayLength(array) {
-    const ELIMINATEDATA = /[^5]/;
+    const ELIMINATEDATA = /^[^5]$/;
     if (ELIMINATEDATA.test(array.length)) {
       throw Error(`陣列長度：${array.length} => 尚未達標，請重新輸入五個整數。`);
-    } else {
-      console.log(`格式正確，新陣列數值：[${array}]，運算中，請稍候。`);
-      return array;
     }
+    console.info(`格式正確，新陣列數值：[${array}]，運算中，請稍候。`);
+    return array;
   }
 
   // 陣列合併相加器
   function mergeAdder(termArray, referenceArray) {
-    let mergeResult = referenceArray.reduce((accumulator, digit, index) => {
+    const mergeResult = referenceArray.reduce((accumulator, digit, index) => {
       accumulator[index] = accumulator[index] + digit;
       return accumulator;
     }, termArray);
     return mergeResult;
+  }
+
+  // 統計陣列相加結果
+  function announced(result) {
+    result.forEach((element, index) => console.info(`第 ${++index} 排序 => 數值加總：${element}`));
+    return result;
   }
 }
 

@@ -5,63 +5,85 @@
 
 // 指在大於1的自然數中，除了1和該數自身外，無法被其他自然數整除的數
 
-// let member = process.argv.slice(2, 9);
-const integer = [3, 50, 0, 13, 2, 4, 11];
-// console.log(arrayA);
+const result = primeProgram(process.argv.slice(2, 9));
+console.info(result);
 
-arrayA.forEach((item, index) => {
-  if (isPrime(item)) {
-    console.log(`質數: ${item}，索引值: ${index}`);
+function primeProgram(receivedata) {
+  // 主程式，例外時拋出錯誤資訊
+  try {
+    const termArray = [3, 50, 0, 13, 2, 4, 11];
+    const validData = formatData(receivedata);
+    const referenceArray = arrayLength(validData, termArray);
+    return announced(referenceArray);
   }
-});
+  catch (e) {
+    return e.message;
+  }
+  finally {
+    console.info(`୧༼✿ ͡◕ д ◕͡ ༽୨ 陣列質數遊戲：試著分辨與合數之間，有何差異？`);
+  }
 
-function isPrime(integer) {
-  if (!integer) return false;
-  for (let i = 2; i < integer - 1; i++) {
-    if (!(integer % i)) {
-      return false;
+  // 判斷格式是否全整數
+  function formatData(data) {
+    const ELIMINATEDATA = /[^\d]|^0$/;
+    const invalidData = data.map(value => ELIMINATEDATA.test(value)).some(value => value);
+    const validNull = data.includes('');
+    if (invalidData || validNull) {
+      throw Error(`輸入值[${data}] => 格式錯誤，請重新輸入有效正整數。`);
     }
+    const validData = data.map(value => Number(value));
+    return validData;
   }
-  return true;
+
+  // 判斷是否正確輸入數值，長度為 5 新陣列。
+  function arrayLength(array, termArray) {
+    if (!(array.length)) {
+      console.info(`未輸入任何資料，預設新陣列數值：[${termArray}]，運算中，請稍候。`);
+      return termArray;
+    }
+    console.info(`格式正確，新陣列數值：[${array}]，運算中，請稍候。`);
+    return array;
+  }
+
+  // 質數過濾器
+  function isPrime(integer) {
+    for (let i = 2; i < integer; i++) {
+      if (!(integer % i)) {
+        return false;
+      }
+    }
+    return integer > 1;
+  }
+
+  // 打印結果
+  function announced(referenceArray) {
+    const answer = referenceArray.filter((integer, index) => {
+      if (isPrime(integer)) {
+        console.info(`質數: ${integer}，索引值: ${index}`);
+        return integer;
+      }
+    });
+    return answer;
+  }
 }
 
 
-// let b = member.filter((item, index) => isPrime(item));
-// console.log(b);
+// if (integer <= 1) return false;
 
-// function isPrime(number) {
-//   if (number === 1) return fals;;
-//   if (!number) return false;
-//   for (let i = 2; i < number; i++) {
-//     if (!(number % i)) {
-//       return false;
-//     }
-//   }
-//   return true;
-// }
-
-// integer.forEach((item, index) => {
-//   if (integer === 1 || isPrime(item)) {
-//     console.log('質數為' + item + '索引值為' + index);
+// referenceArray.filter((item, index) => {
+//   if (result[index]) {
+//     console.info(`質數: ${item}，索引值: ${index}`);
 //   }
 // });
 
+// const aa = termArray.map((item, index) => (isPrime(item)));
+  // return aa;
 
-// const integer = [1, 50, 0, 13, 2, 4];
-
-// integer.forEach((item, index) => {
-//   if (isPrime(item)) {
-//     console.log(`質數: ${item}，索引值: ${index}`);
-//   }
-// });
-
-// function isPrime(integer) {
-//   if (integer === 1) return false;
-//   if (integer === 2) return true;
-//   for (let i = 2; i < integer; i++) {
-//     if (!(integer % i)) {
-//       return false;
-//     }
-//   }
-//   return integer;
-// }
+  // const aa = termArray.map((item, index) => {
+  //   if (isPrime(item)) {
+  //     console.info(`質數: ${item}，索引值: ${index}`);
+  //     return item;
+  //   }
+  //   return false;
+  // });
+  // return aa;

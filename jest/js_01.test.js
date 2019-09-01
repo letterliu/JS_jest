@@ -47,7 +47,7 @@ describe('電影院主程式：goodIdeasCinema', () => {
     it('播放：進場人數大於 1 位，打印試映場播放。', () => {
       const attendance = 1;
       const result = Matchers.sneakPreview(attendance);
-      expect(result).toContain(`d(\`･∀･)b 進場人數: ${attendance} 人，好想電影院試映場播放中。`);
+      expect(result).toContain(`進場人數: ${attendance} 人，好想電影院試映場播放中。`);
     })
 
     it('暫停：進場人數等於 0 位，打印試映場暫停播放。', () => {

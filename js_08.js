@@ -9,7 +9,7 @@ const result = recursionSystem(process.argv[2]);
 console.info('%s', result);
 
 function recursionSystem(receivedata) {
-  // 主程式，例外時拋出錯誤資
+  // 主程式，例外時拋出錯誤資訊
   try {
     const validData = formatData(receivedata);
     const receiver = divideMachine(validData);

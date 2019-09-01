@@ -63,7 +63,7 @@ function alphabetGame(receivedata) {
   // // 黃金會員名字拆解取出奇數字母
   function oddCharacters(name) {
     const characters = name.map(letters => letters.split('').filter((letters, index) => ++index % 2));
-    const answer = characters.reduce((prev, next) => [...prev, ...next]);
+    const answer = characters.reduce((previous, next) => [...previous, ...next]);
     return answer;
   }
 

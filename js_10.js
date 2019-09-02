@@ -35,7 +35,7 @@ function primeProgram(receivedata) {
     return validData;
   }
 
-  // 判斷是否正確輸入數值，長度為 5 新陣列。
+  // 判斷是否正確輸入數值，長度為零，替換預設新陣列。
   function arrayLength(array, termArray) {
     if (!(array.length)) {
       console.info(`未輸入任何資料，預設新陣列數值：[${termArray}]，運算中，請稍候。`);

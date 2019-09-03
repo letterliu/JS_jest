@@ -7,11 +7,21 @@
 (不是線性成長，ex: 十個月生一個小孩。)
 */
 
+/*
+細菌實驗中，原有 b 隻細菌，
+每經過 20 分鐘細菌數量會增加為原來的2倍(2b)，
+試寫一遞迴函數function twofold(b, m) 。
+讓使用者輸入分鐘數 m，
+並計算在沒有細菌死亡的狀況下，
+m 分鐘後的細菌有幾隻。
+(細菌線性成長)
+*/
+
 // let b = 40;
 // let m = 40;
 
-let integer = process.argv.slice(2, 4);
-let a = integer.map((item, index) => Number(item));
+const integer = process.argv.slice(2, 4);
+const a = integer.map((item, index) => Number(item));
 
 function recursion(b, m) {
   if (m < 20 || m <= 0) {

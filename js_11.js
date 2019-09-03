@@ -5,10 +5,8 @@
 並利用do while計算，印出總費用。
 */
 
-// periods
 const result = gymnasium(process.argv[2]);
 console.info(result);
-
 
 function gymnasium(receivedata) {
   // 主程式，例外時拋出錯誤資訊

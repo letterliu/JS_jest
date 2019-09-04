@@ -47,42 +47,59 @@ function primeProgram(receivedata) {
   // 質數過濾器
   function isPrime(integer) {
     for (let i = 2; i < integer; i++) {
-      if (!(integer % i)) {
-        return false;
-      }
+      if (!(integer % i)) return false;
+      return integer > 1;
     }
-    return integer > 1;
   }
 
   // 將質數組成新陣列
   function primeArray(referenceArray) {
     const answer = referenceArray.filter((integer) => {
-      if (isPrime(integer)) {
-        return integer;
-      }
+      if (isPrime(integer)) return integer;
     });
     return answer;
   }
 
-  // 質數倍數化
-  function isMultiple(prime) {
-    const selectArray = [], maximum = 100;
-    for (let i = 1; maximum >= prime * i; i++) {
-      const result = prime * i;
-      selectArray.push(result);
-    }
-    return selectArray;
+  // 倍數化物件
+  function multiplePrime(selectPrime) {
+    return selectPrime.reduce((accumulator, prime) => {
+      const selectArray = [], count = 1;
+      accumulator[prime] = isMultiple(selectArray, prime, count);
+      return accumulator;
+    }, {});
   }
 
-  // 倍數化陣列
-  function multiplePrime(primeArray) {
-    const result = primeArray.map((prime) => isMultiple(prime));
-    return result;
+  // 質數倍數化
+  function isMultiple(selectArray, prime, count, maximum = 100) {
+    if (prime * count >= maximum) return selectArray;
+    selectArray.push(prime * count);
+    count++;
+    return isMultiple(selectArray, prime, count);
   }
 
   // 打印陣列倍數後結果
   function announced(result) {
-    result.forEach(element => console.info(element));
-    return result;
+    return new Map(Object.entries(result));
+    // result.forEach(element => console.info(element));
+    // Object.entries(result).forEach(([key, value]) => {
+    //   console.info(`質數：${key}，倍數${value}。`);
+    // });
+    // return result;
+    // });
   }
 }
+
+//  // 質數倍數化
+//  function isMultiple(prime) {
+//   const selectArray = [], maximum = 100;
+//   for (let i = 1; maximum >= prime * i; i++) {
+//     const result = prime * i;
+//     selectArray.push(result);
+//   }
+//   return selectArray;
+// }
+
+// // 倍數化陣列
+// function multiplePrime(primeArray) {
+//   return primeArray.map((prime) => isMultiple(prime));
+// }

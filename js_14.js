@@ -1,11 +1,3 @@
-/*
-假設於某項實驗中，原有b隻細菌，
-每經過20分鐘細菌數量會增加為原來的2倍(2b)，
-試寫一遞迴函數function twofold(b, m) 。
-讓使用者輸入分鐘數 m，
-並計算在沒有細菌死亡的狀況下，m 分鐘後的細菌有幾隻。
-(不是線性成長，ex: 十個月生一個小孩。)
-*/
 
 /*
 細菌實驗中，原有 b 隻細菌，
@@ -17,26 +9,69 @@ m 分鐘後的細菌有幾隻。
 (細菌線性成長)
 */
 
-// let b = 40;
-// let m = 40;
+const result = twoFold(process.argv.slice(2, 4));
+console.info(result);
 
-const integer = process.argv.slice(2, 4);
-const a = integer.map((item, index) => Number(item));
+function twoFold(receivedata) {
+  // 主程式，例外時拋出錯誤資
+  try {
+    const validData = formatData(receivedata);
+    const contagion = recursion(validData[0], validData[1]);
+    return announced(contagion, validData[0], validData[1]);
+  }
+  catch (e) {
+    return e.message;
+  }
+  finally {
+    console.info(`↑_(ΦwΦ;)Ψ 生化武器病菌爆發中，請立即終止按鈕封鎖全境。`);
+  }
 
-function recursion(b, m) {
-  if (m < 20 || m <= 0) {
-    return b;
-  } else {
-    return recursion(2 * b, m - 20);
+  // 判斷格式是否兩個有效正整數
+  function formatData(data) {
+    const ELIMINATEDATA = /[^\d]|^0$/;
+    const invalidData = data.map(value => ELIMINATEDATA.test(value)).some(value => value);
+    const validNull = data.includes('');
+    if (invalidData || validNull || data.length !== 2) {
+      throw Error(`輸入值[${data}] => 格式錯誤，請重新輸入兩個有效正整數。`);
+    }
+    const validData = data.map(value => Number(value));
+    return validData;
+  }
+
+  // 病毒2倍數成長，直到時間停止
+  function recursion(virus, countDown, period = 20) {
+    if (countDown < period) {
+      return virus;
+    }
+    return recursion(2 * virus, countDown - period);
+  }
+
+  // // 執行打印倍數總和
+  function announced(contagion, virus, countDown) {
+    console.info(`好想實驗中 ${virus} 隻病毒，經過 ${countDown} 分鐘，已倍速失控成 ${contagion} 隻病毒。`);
+    return {
+      virus: virus,
+      countDown: countDown,
+      contagion: contagion
+    }
   }
 }
 
-// 執行打印整數總和
-function integerSum(integer) {
-  let result = recursion(integer[0], integer[1]);
-  console.log(result);
-  // console.log(`遞迴函數總和： ${result}`);
-}
-integerSum(a);
+ // function cc(validData) {
+  //   return validData.reduce((accumulator, value) => {
+  //     const selectArray = [], countDown = validData[1], virus = validData[0];
+  //     accumulator[value] = recursion(selectArray, virus, countDown);
+  //     return accumulator;
+  //   }, {});
+  // }
 
-// console.log(recursion(integer));
+  // 病毒2倍數成長，直到時間停止
+  // function recursion(virus, countDown, period = 20) {
+  //   if (countDown < period) {
+  //     // console.log(selectArray);
+  //     return virus;
+  //     // return virus;
+  //   }
+  //   // selectArray.push(2 * virus);
+  //   return recursion(2 * virus, countDown - period);
+  // }

@@ -44,6 +44,9 @@ function theTortoiseAndTheHare() {
 
   // 龜兔賽跑公佈結果
   function finishLine(runner, sprinter) {
+    const TORTOISE = new Map(Object.entries(runner));
+    const HARE = new Map(Object.entries(sprinter));
+    console.info(TORTOISE, HARE);
     if (runner.distance > sprinter.distance) {
       console.info(`${runner.name} 已跑 ${runner.distance} 公尺，目前進行總秒數：${runner.took} 秒，即將到達終點。`);
       console.info(`已大於 ${sprinter.name} 目前休息位置 ${sprinter.distance} 公尺。`);

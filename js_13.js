@@ -31,9 +31,7 @@ function theTortoiseAndTheHare() {
     for (var sec = 0, ranMeters = 0; ranMeters <= maximum; sec++) {
       if (ranMeters + HARE >= maximum) break;
       ranMeters += HARE;
-      if (!(sec % 5)) {
-        --ranMeters;
-      }
+      if (!(sec % 5))--ranMeters;
     }
     return {
       name: 'hare',

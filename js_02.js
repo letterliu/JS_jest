@@ -25,11 +25,8 @@ function congruentNumber(receivedata) {
     return revealAnswer(answer);
   }
   catch (e) {
-    if (e instanceof formatError) {
-      return e.message;
-    } else {
-      return e.message;
-    }
+    if (e instanceof formatError) return e.message;
+    return e.message;
   }
   finally {
     console.info('(つ´ω`)つ 好想餘數遊戲機，歡迎勇者挑戰！');
@@ -38,7 +35,6 @@ function congruentNumber(receivedata) {
   // 過濾空值以外，是否輸入兩個數值。
   function formatData(data) {
     const validNull = data.map(value => !value.trim()).some(value => value);
-    // const validNull = data.includes('');
     const invalidLength = data.length !== 2;
     if (validNull || invalidLength) {
       throw new formatError(`[${data}] 帶有空值，請重新輸入兩筆資料。`);
@@ -50,12 +46,10 @@ function congruentNumber(receivedata) {
     // 正則表達式 排除正負整數以外所有值，包含過濾零。
     const ELIMINATEDATA = /[^\d-]|^0$/;
     const invalidData = data.map(value => ELIMINATEDATA.test(value)).some(value => value);
-    // const invalidData = data.includes('0');
     if (invalidData) {
       throw Error(`[${data}] 格式錯誤，請重新輸入兩個有效的正負整數。`);
     }
-    const validData = data.map(value => Number(value));
-    return validData;
+    return data.map(value => Number(value));
   }
 
   // 相比兩個數值餘數是否相同
@@ -68,11 +62,8 @@ function congruentNumber(receivedata) {
 
   // 餘數是否相同，公佈最後答案
   function revealAnswer(answer) {
-    if (answer) {
-      return '恭喜！條件符合餘數相同，闖關成功。';
-    } else {
-      return '殘念！餘數相比出現差異，請試著再挑戰一次。';
-    }
+    if (answer) return '恭喜！條件符合餘數相同，闖關成功。';
+    else return '殘念！餘數相比出現差異，請試著再挑戰一次。';
   }
 }
 

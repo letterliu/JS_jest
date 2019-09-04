@@ -23,11 +23,8 @@ function alphabetGame(receivedata) {
     return announced(answer);
   }
   catch (e) {
-    if (e instanceof FormatError) {
-      return e.message;
-    } else {
-      return e.message;
-    }
+    if (e instanceof FormatError) return e.message;
+    return e.message;
   }
   finally {
     console.info('(❛◡❛✿) 好想認識字母表，從挑戰名字開始 !! Fighting !!');
@@ -63,8 +60,7 @@ function alphabetGame(receivedata) {
   // // 黃金會員名字拆解取出奇數字母
   function oddCharacters(name) {
     const characters = name.map(letters => letters.split('').filter((letters, index) => ++index % 2));
-    const answer = characters.reduce((previous, next) => [...previous, ...next]);
-    return answer;
+    return characters.reduce((previous, next) => [...previous, ...next]);
   }
 
   function announced(answer) {

@@ -24,11 +24,8 @@ function recursionGame(receivedata) {
     return statistic(answer);
   }
   catch (e) {
-    if (e instanceof evenError) {
-      return e.message;
-    } else {
-      return e.message;
-    }
+    if (e instanceof evenError) return e.message;
+    return e.message;
   }
   finally {
     console.info('ヽ(✿ﾟ▽ﾟ)ノ 好想遞迴函數遊戲，全新上架中。');
@@ -41,8 +38,7 @@ function recursionGame(receivedata) {
     if (invalidData || !data.trim()) {
       throw Error(`輸入值[${data}] => 格式錯誤，請重新輸入有效的正整數。`);
     }
-    const validData = Number(data);
-    return validData;
+    return Number(data);
   }
 
   // 判斷 n 最小為 4 並為偶數正整數

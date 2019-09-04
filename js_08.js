@@ -30,8 +30,7 @@ function recursionSystem(receivedata) {
     if (invalidData || !data.trim()) {
       throw Error(`輸入值[${data}] => 格式錯誤，請重新輸入有效的正整數。`);
     }
-    const validData = Number(data);
-    return validData;
+    return Number(data);
   }
 
   // 遞迴運算器
@@ -49,8 +48,7 @@ function recursionSystem(receivedata) {
 
   // 執行遞迴除法打印結果
   function remainder(number) {
-    const answer = Number.parseFloat(number).toFixed(4);
-    return answer;
+    return Number.parseFloat(number).toFixed(4);
   }
 
   // 統計級數結果

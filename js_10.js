@@ -31,8 +31,7 @@ function primeProgram(receivedata) {
     if (invalidData || validNull) {
       throw Error(`輸入值[${data}] => 格式錯誤，請重新輸入有效正整數。`);
     }
-    const validData = data.map(value => Number(value));
-    return validData;
+    return data.map(value => Number(value));
   }
 
   // 判斷是否正確輸入數值，長度為零，替換預設新陣列。
@@ -48,22 +47,19 @@ function primeProgram(receivedata) {
   // 質數過濾器
   function isPrime(integer) {
     for (let i = 2; i < integer; i++) {
-      if (!(integer % i)) {
-        return false;
-      }
+      if (!(integer % i)) return false;
     }
     return integer > 1;
   }
 
   // 打印結果
   function announced(referenceArray) {
-    const answer = referenceArray.filter((integer, index) => {
+    return referenceArray.filter((integer, index) => {
       if (isPrime(integer)) {
         console.info(`質數: ${integer}，索引值: ${index}`);
         return integer;
       }
     });
-    return answer;
   }
 }
 

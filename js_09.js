@@ -26,11 +26,8 @@ function addendGame(receivedata) {
     return announced(mergeResult);
   }
   catch (e) {
-    if (e instanceof formatError) {
-      return e.message;
-    } else {
-      return e.message;
-    }
+    if (e instanceof formatError) return e.message;
+    return e.message;
   }
   finally {
     console.info(`(๑¯∀¯๑) 陣列加法遊戲：[ 2, 3, 1, 7, 9 ] 試著與輸入數值相加，返回皆同數值陣列。`);
@@ -44,8 +41,7 @@ function addendGame(receivedata) {
     if (invalidData || validNull) {
       throw new formatError(`輸入值[${data}] => 格式錯誤，請重新輸入有效整數。`);
     }
-    const validData = data.map(value => Number(value));
-    return validData;
+    return data.map(value => Number(value));
   }
 
   // 判斷是否正確輸入數值，長度為 5 新陣列。

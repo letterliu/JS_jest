@@ -30,8 +30,7 @@ function primeProgram(receivedata) {
     if (invalidData || validNull) {
       throw Error(`輸入值[${data}] => 格式錯誤，請重新輸入有效正整數。`);
     }
-    const validData = data.map(value => Number(value));
-    return validData;
+    return data.map(value => Number(value));
   }
 
   // 判斷是否正確輸入數值，長度為零，替換預設新陣列
@@ -54,10 +53,9 @@ function primeProgram(receivedata) {
 
   // 將質數組成新陣列
   function primeArray(referenceArray) {
-    const answer = referenceArray.filter((integer) => {
+    return referenceArray.filter((integer) => {
       if (isPrime(integer)) return integer;
     });
-    return answer;
   }
 
   // 倍數化物件

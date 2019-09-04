@@ -23,11 +23,8 @@ function ticketingSystem(receivedata) {
     return bookingTickets(exactAge);
   }
   catch (e) {
-    if (e instanceof formatError) {
-      return e.message;
-    } else {
-      return e.message;
-    }
+    if (e instanceof formatError) return e.message;
+    return e.message;
   }
   finally {
     console.info('( ͡° ͜ʖ ͡°) 好想樂園暑假優惠中，歡迎蒞臨。');
@@ -43,17 +40,12 @@ function ticketingSystem(receivedata) {
     if (invalidData) {
       throw new formatError('格式錯誤，請重新輸入有效的正整數。');
     }
-    const validData = Number(data);
-    return validData;
+    return Number(data);
   }
 
   function bookingTickets(exactAge) {
     // 一般票價 優惠票(老人、兒童)
-    const childhood = 6;
-    const seniorCitizen = 65;
-    const ADMISSION = 400;
-    const HALFPRICE = 0.5;
-    const concessionTicket = ADMISSION * HALFPRICE;
+    const childhood = 6, seniorCitizen = 65, ADMISSION = 400, HALFPRICE = 0.5, concessionTicket = ADMISSION * HALFPRICE;
     if (childhood < exactAge && exactAge < seniorCitizen) {
       return `入場年齡：${exactAge} 歲，全票票價：${ADMISSION} 元`;
     } else {

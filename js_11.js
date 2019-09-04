@@ -29,25 +29,19 @@ function gymnasium(receivedata) {
     if (invalidData || !data.trim()) {
       throw Error(`[${data}] 格式錯誤，請重新輸入有效的正整數。`);
     }
-    const validData = Number(data);
-    return validData;
+    return Number(data);
   }
 
   // 會員費用總計算
   function members(periods) {
-    const membershipDues = 500, cashDiscount = 79 / 100, bonusPoint = 200;
+    const membershipDues = 500, cashDiscount = 79 / 100, bonusPoint = 200, discountCondition = 5;
     let i = 1, sum = 0, cumulativeBonus = 0;
     cumulativeBonus = parseInt(periods / 5) * bonusPoint;
 
     do {
-      if (i === 1) {
-        sum = membershipDues * cashDiscount;
-      } else {
-        sum += membershipDues;
-      }
-      if (!(i % 5)) {
-        sum -= bonusPoint;
-      }
+      if (i === 1) sum = membershipDues * cashDiscount;
+      else sum += membershipDues;
+      if (!(i % discountCondition)) sum -= bonusPoint;
     } while (++i <= periods);
 
     return {

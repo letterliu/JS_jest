@@ -34,15 +34,12 @@ function twoFold(receivedata) {
     if (invalidData || validNull || data.length !== 2) {
       throw Error(`輸入值[${data}] => 格式錯誤，請重新輸入兩個有效正整數。`);
     }
-    const validData = data.map(value => Number(value));
-    return validData;
+    return data.map(value => Number(value));
   }
 
   // 病毒2倍數成長，直到時間停止
   function recursion(virus, countDown, period = 20) {
-    if (countDown < period) {
-      return virus;
-    }
+    if (countDown < period) return virus;
     return recursion(2 * virus, countDown - period);
   }
 

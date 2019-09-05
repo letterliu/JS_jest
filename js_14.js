@@ -43,7 +43,7 @@ function twoFold(receivedata) {
     return recursion(2 * virus, countDown - period);
   }
 
-  // // 執行打印倍數總和
+  // 執行打印倍數總和
   function announced(contagion, virus, countDown) {
     console.info(`好想實驗中 ${virus} 隻病毒，經過 ${countDown} 分鐘，已倍速失控成 ${contagion} 隻病毒。`);
     return {

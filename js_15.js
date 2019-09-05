@@ -8,55 +8,35 @@
 並列印出三種器材的個數及總重量。
 */
 
-let dumbbellBox = 30;
-let horizontalBarBox = 20;
-let Treadmill = 50;
+const equipment = gymnasium();
+const result = announced(equipment);
+console.info(result);
 
-// let sport = [0, 0, 0];
-
-// function randomSort(a, b) {
-//   return Math.random() > 0.5 ? 1 : -1;
-// }
-
-// var arr = [30, 20, 50];
-// let a = arr.sort(randomSort);
-// console.log(a);
-
-
-var arr = [30, 20, 50];
-
-let c = 0;
-let sum = 0;
-let sum1 = 0;
-let sum2 = 0;
-for (let i = 1; c <= 1000; i++) {
-  let b = Math.ceil(Math.random() * 3) - 1;
-  if (b == 0) {
-    sum = sum + 1;
-  } else if (b == 1) {
-    sum1 = sum1 + 1;
-  } else {
-    sum2 = sum2 + 1;
+// 主程式，例外時拋出錯誤資訊
+function gymnasium() {
+  const pieceWeight = [30, 20, 50], max = pieceWeight.length, freightCar = [], weightLimit = 1000;
+  for (let grossWeight = 0, i = 0; grossWeight <= weightLimit; i++) {
+    const randomIndex = Math.floor(Math.random() * max);
+    if (grossWeight + pieceWeight[randomIndex] > weightLimit) {
+      return freightCar.sort((a, b) => a - b);
+    }
+    freightCar.push(pieceWeight[randomIndex])
+    grossWeight += pieceWeight[randomIndex];
   }
-  c = c + arr[b];
-  if (c > 1000) {
-    break;
-  }
-  console.log(`編號${b + 1}: 總重：${c}`);
 }
-console.log(`啞鈴總次數：${sum}`);
-console.log(`單槓總次數：${sum1}`);
-console.log(`跑步機總次數：${sum2}`);
 
+// 執行打印結果
+function announced(equipment) {
+  const obj = {};
+  obj.total = equipment.reduce((prev, next) => prev + next);
+  obj.dumbbellBox = equipment.filter(value => value === 30).length;
+  obj.horizontalBarBox = equipment.filter(value => value === 20).length;
+  obj.Treadmill = equipment.filter(value => value === 50).length;
+  return obj;
+}
 
-// function shuffle() {
-//   for (var i = tempArray.length - 1; i >= 0; i--) {
-//     var randomIndex = Math.floor(Math.random() * i);
-//     var itemAtIndex = tempArray[randomIndex];
-//     tempArray[randomIndex] = tempArray[i];
-//     tempArray[i] = itemAtIndex;
-//   }
-//   return tempArray;
-// }
-// var tempArray = [30, 20, 50];
-// console.log(shuffle());
+// console.log(`啞鈴總次數：${dumbbellBox}`);
+// console.log(`單槓總次數：${horizontalBarBox}`);
+// console.log(`跑步機總次數：${Treadmill}`);
+
+// const dumbbellBox = 30, horizontalBarBox = 20, Treadmill = 50;

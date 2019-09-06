@@ -13,7 +13,7 @@ const result = twoFold(process.argv.slice(2, 4));
 console.info(result);
 
 function twoFold(receivedata) {
-  // 主程式，例外時拋出錯誤資
+  // 主程式，例外時拋出錯誤資訊
   try {
     const validData = formatData(receivedata);
     const contagion = recursion(validData[0], validData[1]);

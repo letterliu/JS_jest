@@ -8,35 +8,60 @@
 並列印出三種器材的個數及總重量。
 */
 
-const equipment = gymnasium();
-const result = announced(equipment);
-console.info(result);
+const result = mayFlower();
+console.info(new Map(Object.entries(result)));
 
-// 主程式，例外時拋出錯誤資訊
-function gymnasium() {
-  const pieceWeight = [30, 20, 50], max = pieceWeight.length, freightCar = [], weightLimit = 1000;
-  for (let grossWeight = 0, i = 0; grossWeight <= weightLimit; i++) {
-    const randomIndex = Math.floor(Math.random() * max);
-    if (grossWeight + pieceWeight[randomIndex] > weightLimit) {
-      return freightCar.sort((a, b) => a - b);
+function mayFlower() {
+  // 主程式，運轉順序
+  const pieceWeight = [30, 20, 50];
+  const equipment = gymnasium(pieceWeight);
+  const grossWeight = sortingSystem(equipment, pieceWeight);
+  return announced(equipment, grossWeight);
+
+  // 搬運啞鈴，單槓，跑步機個別總數
+  function gymnasium(pieceWeight) {
+    const max = pieceWeight.length, weightLimit = 1000, equipment = [0, 0, 0];
+    for (let grossWeight = 0, i = 0; grossWeight <= weightLimit; i++) {
+      const randomIndex = Math.floor(Math.random() * max);
+      if (grossWeight + pieceWeight[randomIndex] > weightLimit) {
+        return equipment;
+      }
+      equipment[randomIndex]++;
+      grossWeight += pieceWeight[randomIndex];
     }
-    freightCar.push(pieceWeight[randomIndex])
-    grossWeight += pieceWeight[randomIndex];
+  }
+
+  // 計算啞鈴，單槓，跑步機總數重量結果
+  function sortingSystem(equipment, pieceWeight) {
+    return equipment.reduce((accumulator, amount, index) => {
+      accumulator[index] = accumulator[index] * amount;
+      return accumulator;
+    }, pieceWeight);
+  }
+
+  // 打印數量與建立物件
+  function announced(equipment, grossWeight) {
+    console.info(`啞鈴總次數：${equipment[0]}`);
+    console.info(`單槓總次數：${equipment[1]}`);
+    console.info(`跑步機總次數：${equipment[2]}`);
+    const sum = grossWeight.reduce((previous, next) => previous + next);
+    return {
+      equipment: equipment,
+      grossWeight: grossWeight,
+      total: sum
+    }
   }
 }
 
-// 執行打印結果
-function announced(equipment) {
-  const obj = {};
-  obj.total = equipment.reduce((prev, next) => prev + next);
-  obj.dumbbellBox = equipment.filter(value => value === 30).length;
-  obj.horizontalBarBox = equipment.filter(value => value === 20).length;
-  obj.Treadmill = equipment.filter(value => value === 50).length;
-  return obj;
-}
 
-// console.log(`啞鈴總次數：${dumbbellBox}`);
-// console.log(`單槓總次數：${horizontalBarBox}`);
-// console.log(`跑步機總次數：${Treadmill}`);
 
 // const dumbbellBox = 30, horizontalBarBox = 20, Treadmill = 50;
+
+// function announced(equipment) {
+//   const obj = {};
+//   obj.total = equipment.reduce((prev, next) => prev + next);
+//   obj.dumbbellBox = equipment.filter(value => value === 30).length;
+//   obj.horizontalBarBox = equipment.filter(value => value === 20).length;
+//   obj.Treadmill = equipment.filter(value => value === 50).length;
+//   return obj;
+// }

@@ -8,6 +8,7 @@ const result = theTortoiseAndTheHare();
 console.info(result);
 
 function theTortoiseAndTheHare() {
+  // 主程式，運轉順序
   const TORTOISE = 0.28, HARE = 20, maximum = 1000;
   const runner = marathon(TORTOISE);
   const sprinter = trackEvents(HARE);

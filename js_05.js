@@ -56,9 +56,8 @@ function recursionGame(receivedata) {
   function recursionSum(number) {
     if (!number) {
       return number;
-    } else {
-      return number * (number - 2) + recursionSum(number - 2);
     }
+    return number * (number - 2) + recursionSum(number - 2);
   }
 
   // 執行打印整數總和

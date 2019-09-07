@@ -39,11 +39,10 @@ function recursionSystem(receivedata) {
     if (ELIMINATEDATA.test(number)) {
       console.info(`最終進行次數：總共 ${roundTime} 次。`);
       return number;
-    } else {
-      console.info(`累加次數：${roundTime} 次，=> 尚剩餘值：${number}`);
-      roundTime++;
-      return divideMachine(number / 3, roundTime);
     }
+    console.info(`累加次數：${roundTime} 次，=> 尚剩餘值：${number}`);
+    roundTime++;
+    return divideMachine(number / 3, roundTime);
   }
 
   // 執行遞迴除法打印結果

@@ -3,7 +3,7 @@
 console.info = function () { }; // 註解 => jest過濾方法
 const Matchers = require('../js_03');
 
-describe('餘數主程式：ticketingSystem', () => {
+describe('樂園主程式：ticketingSystem', () => {
 
   describe('主程式運作', () => {
     it('回傳：[] 帶有空值，請重新輸入資料。', () => {

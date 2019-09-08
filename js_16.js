@@ -15,7 +15,7 @@ class formatError extends Error {
 }
 
 const result = caesarCipher(process.argv.slice(2, 3), process.argv[3]);
-console.info(new Map(Object.entries(result)))
+console.log('%s', result);
 
 function caesarCipher(RECEIVEDATA, RECEIVENUMBER) {
   // 主程式，例外時拋出錯誤資訊
@@ -36,13 +36,13 @@ function caesarCipher(RECEIVEDATA, RECEIVENUMBER) {
   // 判斷格式是否為有效字母與偏移數
   function formatData(data, number) {
     const invalidData = /[^a-z]/i.test(data);
-    const invalidNumber = /[^0-9]/.test(number);
+    const invalidNumber = /[^\d-]/.test(number);
     const validNull = data.includes('');
     if (invalidData || !data.length || validNull) {
       throw new formatError(`輸入值[${data}] => 格式錯誤，請重新輸入明文字母表。`);
     }
     if (invalidNumber || !number.length) {
-      throw Error('尚未輸入平移位數，請重新填入數字。');
+      throw Error('尚未輸入平移位數，請重新填入數目。');
     }
     return Number(number);
   }
@@ -76,6 +76,7 @@ function caesarCipher(RECEIVEDATA, RECEIVENUMBER) {
   // 打印密文結果
   function announced(ciphertext) {
     console.info(`凱撒加密：${ciphertext.encoded}，位移數：${ciphertext.displacement}。`);
+    console.info(new Map(Object.entries(ciphertext)));
     return ciphertext;
   }
 }

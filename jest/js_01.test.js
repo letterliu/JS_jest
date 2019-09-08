@@ -8,7 +8,7 @@ describe('電影院主程式：goodIdeasCinema', () => {
     it('回傳：有效人數，試映場播放中。', () => {
       const validData = '1';
       const result = Matchers.goodIdeasCinema(validData);
-      expect(result).toContain("電影院試映場播放中。");
+      expect(result).toContain('電影院試映場播放中。');
     })
 
     it('回傳：無效空值，重新輸入。', () => {

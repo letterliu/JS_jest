@@ -10,6 +10,11 @@
     *
 */
 
+// Jest
+module.exports = {
+  rotateGame,
+};
+
 (function rotateGame() {
   const heartPattern = [
     [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],

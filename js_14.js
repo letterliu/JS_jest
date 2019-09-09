@@ -9,6 +9,14 @@ m 分鐘後的細菌有幾隻。
 (細菌線性成長)
 */
 
+// Jest
+module.exports = {
+  twoFold,
+  formatData,
+  recursion,
+  announced
+};
+
 const result = twoFold(process.argv.slice(2, 4));
 console.info(result);
 
@@ -25,32 +33,32 @@ function twoFold(receivedata) {
   finally {
     console.info(`↑_(ΦwΦ;)Ψ 生化武器病菌爆發中，請立即終止按鈕封鎖全境。`);
   }
+}
 
-  // 判斷格式是否兩個有效正整數
-  function formatData(data) {
-    const ELIMINATEDATA = /[^\d]|^0$/;
-    const invalidData = data.map(value => ELIMINATEDATA.test(value)).some(value => value);
-    const validNull = data.includes('');
-    if (invalidData || validNull || data.length !== 2) {
-      throw Error(`輸入值[${data}] => 格式錯誤，請重新輸入兩個有效正整數。`);
-    }
-    return data.map(value => Number(value));
+// 判斷格式是否兩個有效正整數
+function formatData(data) {
+  const ELIMINATEDATA = /[^\d]|^0$/;
+  const invalidData = data.map(value => ELIMINATEDATA.test(value)).some(value => value);
+  const validNull = data.includes('');
+  if (invalidData || validNull || data.length !== 2) {
+    throw Error(`輸入值[${data}] => 格式錯誤，請重新輸入兩個有效正整數。`);
   }
+  return data.map(value => Number(value));
+}
 
-  // 病毒2倍數成長，直到時間停止
-  function recursion(virus, countDown, period = 20) {
-    if (countDown < period) return virus;
-    return recursion(2 * virus, countDown - period);
-  }
+// 病毒2倍數成長，直到時間停止
+function recursion(virus, countDown, period = 20) {
+  if (countDown < period) return virus;
+  return recursion(2 * virus, countDown - period);
+}
 
-  // 執行打印倍數總和
-  function announced(contagion, virus, countDown) {
-    console.info(`好想實驗中 ${virus} 隻病毒，經過 ${countDown} 分鐘，已倍速失控成 ${contagion} 隻病毒。`);
-    return {
-      virus: virus,
-      countDown: countDown,
-      contagion: contagion
-    }
+// 宣佈病毒報告
+function announced(contagion, virus, countDown) {
+  console.info(`好想實驗中 ${virus} 隻病毒，經過 ${countDown} 分鐘，已倍速失控成 ${contagion} 隻病毒。`);
+  return {
+    virus: virus,
+    countDown: countDown,
+    contagion: contagion
   }
 }
 

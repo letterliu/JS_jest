@@ -19,7 +19,7 @@ describe('陣列相加主程式：addendGame', () => {
   });
 
   describe('空值與資料格式過濾', () => {
-    it('過濾：輸入值[tmp,] => 格式錯誤，請重新輸入有效整數。', () => {
+    it('過濾：輸入值["tmp",] => 格式錯誤，請重新輸入有效整數。', () => {
       const invalidData = ['tmp', ''];
       const result = () => Matchers.formatData(invalidData);
       expect(result).toThrow(`輸入值[${invalidData}] => 格式錯誤，請重新輸入有效整數。`);

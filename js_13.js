@@ -54,10 +54,8 @@ function finishLine(runner, sprinter) {
   const TORTOISE = new Map(Object.entries(runner));
   const HARE = new Map(Object.entries(sprinter));
   console.info(TORTOISE, HARE);
-  if (runner.distance > sprinter.distance) {
-    console.info(`${runner.name} 已跑 ${runner.distance} 公尺，目前進行總秒數：${runner.took} 秒，即將到達終點。`);
-    console.info(`已大於 ${sprinter.name} 目前休息位置 ${sprinter.distance} 公尺。`);
-  }
+  console.info(`${runner.name} 已跑 ${runner.distance} 公尺，目前進行總秒數：${runner.took} 秒，即將到達終點。`);
+  console.info(`已大於 ${sprinter.name} 目前休息位置 ${sprinter.distance} 公尺。`);
   console.info(`1000 公尺賽程，${runner.name} 總需秒數：${++runner.took} 秒，${sprinter.name} 總需秒數：${++sprinter.took} 秒。`);
   const result = runner.took - sprinter.took;
   console.info(`${sprinter.name} 途中休息耍廢不超過 ${result} 秒，最終皆能提前抵達終點贏得比賽。`);

@@ -12,7 +12,7 @@
 
 // Jest
 module.exports = {
-  rotateGame,
+  // rotateGame,
 };
 
 (function rotateGame() {

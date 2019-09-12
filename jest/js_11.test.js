@@ -6,15 +6,15 @@ const Matchers = require('../js_11');
 describe('會費主程式：gymnasium', () => {
 
   describe('主程式運作', () => {
-    it('回傳：{ "cumulativeBonus": 200, "periods": 7, "sum": 3195 }。', () => {
+    it('回傳：{ cumulativeBonus: 200, periods: 7, sum: 3195 }。', () => {
       const receivedata = '7';
       const result = Matchers.gymnasium(receivedata);
-      expect(result).toEqual({ "cumulativeBonus": 200, "periods": 7, "sum": 3195 });
+      expect(result).toEqual({ 'cumulativeBonus': 200, 'periods': 7, 'sum': 3195 });
     });
   });
 
   describe('空值與資料格式過濾', () => {
-    it('過濾：[a] 格式錯誤，請重新輸入有效的正整數。', () => {
+    it('過濾：["a"] 格式錯誤，請重新輸入有效的正整數。', () => {
       const invalidData = 'a';
       const result = () => Matchers.formatData(invalidData);
       expect(result).toThrow(`[${invalidData}] 格式錯誤，請重新輸入有效的正整數。`);

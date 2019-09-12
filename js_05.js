@@ -14,7 +14,7 @@ module.exports = {
 };
 
 // 新增newError模式
-class evenError extends Error {
+class EvenError extends Error {
   constructor(msg) {
     super(msg);
   }
@@ -33,7 +33,7 @@ function recursionGame(receivedata) {
     return statistic(answer);
   }
   catch (e) {
-    if (e instanceof evenError) return e.message;
+    if (e instanceof EvenError) return e.message;
     return e.message;
   }
   finally {
@@ -56,7 +56,7 @@ function evenNumber(integer) {
   const ELIMINATEVALUE = /^[0-3]{1}$/;
   const invalidValue = ELIMINATEVALUE.test(integer);
   if (invalidValue || integer % 2) {
-    throw new evenError(`輸入值[${integer}] => 請重新輸入大於或等於 4 以上偶數值。`);
+    throw new EvenError(`輸入值[${integer}] => 請重新輸入大於或等於 4 以上偶數值。`);
   }
   console.info(`輸入偶數值[${integer}] => 符合條件運算中。`);
   return integer;

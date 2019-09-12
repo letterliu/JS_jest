@@ -13,7 +13,7 @@ module.exports = {
 };
 
 // 新增newError模式
-class formatError extends Error {
+class FormatError extends Error {
   constructor(msg) {
     super(msg);
   }
@@ -30,7 +30,7 @@ function ticketingSystem(receivedata) {
     return bookingTickets(exactAge);
   }
   catch (e) {
-    if (e instanceof formatError) return e.message;
+    if (e instanceof FormatError) return e.message;
     return e.message;
   }
   finally {
@@ -46,7 +46,7 @@ function formatData(data) {
     throw Error(`[${data}] 帶有空值，請重新輸入資料。`);
   }
   if (invalidData) {
-    throw new formatError('格式錯誤，請重新輸入有效的正整數。');
+    throw new FormatError('格式錯誤，請重新輸入有效的正整數。');
   }
   return Number(data);
 }

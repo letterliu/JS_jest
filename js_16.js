@@ -7,15 +7,24 @@
 大寫英文字母的 ASCII Code 65 ~ 90。
 */
 
+// Jest
+module.exports = {
+  caesarCipher,
+  formatData,
+  ASCII,
+  encryption,
+  announced
+};
+
 // 新增newError模式
-class formatError extends Error {
+class FormatError extends Error {
   constructor(msg) {
     super(msg);
   }
 }
 
 const result = caesarCipher(process.argv.slice(2, 3), process.argv[3]);
-console.log('%s', result);
+console.info('%s', result);
 
 function caesarCipher(RECEIVEDATA, RECEIVENUMBER) {
   // 主程式，例外時拋出錯誤資訊
@@ -26,59 +35,59 @@ function caesarCipher(RECEIVEDATA, RECEIVENUMBER) {
     return announced(ciphertext);
   }
   catch (e) {
-    if (e instanceof formatError) return e.message;
+    if (e instanceof FormatError) return e.message;
     return e.message;
   }
   finally {
     console.info(`Σ(っ °Д °;)っ 字母表按照一個固定數目，進行偏移後被替換成密文。`);
   }
+}
 
-  // 判斷格式是否為有效字母與偏移數
-  function formatData(data, number) {
-    const invalidData = /[^a-z]/i.test(data);
-    const invalidNumber = /[^\d-]/.test(number);
-    const validNull = data.includes('');
-    if (invalidData || !data.length || validNull) {
-      throw new formatError(`輸入值[${data}] => 格式錯誤，請重新輸入明文字母表。`);
-    }
-    if (invalidNumber || !number.length) {
-      throw Error('尚未輸入平移位數，請重新填入數目。');
-    }
-    return Number(number);
+// 判斷格式是否為有效字母與偏移數
+function formatData(data, number) {
+  const invalidData = /[^a-z]/i.test(data);
+  const invalidNumber = /[^\d-]/.test(number);
+  const validNull = data.includes('');
+  if (invalidData || !data.length || validNull) {
+    throw new FormatError(`輸入值[${data}] => 格式錯誤，請重新輸入明文字母表。`);
   }
+  if (invalidNumber || !number.length) {
+    throw Error('尚未輸入平移位數，請重新填入數目。');
+  }
+  return Number(number);
+}
 
-  // 轉換成 ASCII code
-  function ASCII(receivedata, displacement) {
-    const capitalization = receivedata.map(character => character.toUpperCase().split(''));
-    const interChangeNumber = capitalization.reduce((previous, next) => [...previous, ...next]).map(character => character.charCodeAt());
-    displacement = displacement % 26;
-    return {
-      ASCII: interChangeNumber,
-      displacement: displacement
-    }
+// 轉換成 ASCII code
+function ASCII(receivedata, displacement) {
+  const capitalization = receivedata.map(character => character.toUpperCase().split(''));
+  const interChangeNumber = capitalization.reduce((previous, next) => [...previous, ...next]).map(character => character.charCodeAt());
+  displacement = displacement % 26;
+  return {
+    ASCII: interChangeNumber,
+    displacement: displacement
   }
+}
 
-  // 明文加密運轉器
-  function encryption(object) {
-    displacement = object.displacement;
-    const alphabet = 26;
-    const encoded = object.ASCII.map((encode) => {
-      if (encode + displacement > 90) encode -= alphabet;
-      if (encode + displacement < 65) encode += alphabet;
-      return String.fromCharCode(encode + displacement);
-    }).join('');
-    return {
-      encoded: encoded,
-      displacement: displacement
-    }
+// 明文加密運轉器
+function encryption(object) {
+  displacement = object.displacement;
+  const alphabet = 26;
+  const encoded = object.ASCII.map((encode) => {
+    if (encode + displacement > 90) encode -= alphabet;
+    if (encode + displacement < 65) encode += alphabet;
+    return String.fromCharCode(encode + displacement);
+  }).join('');
+  return {
+    encoded: encoded,
+    displacement: displacement
   }
+}
 
-  // 打印密文結果
-  function announced(ciphertext) {
-    console.info(`凱撒加密：${ciphertext.encoded}，位移數：${ciphertext.displacement}。`);
-    console.info(new Map(Object.entries(ciphertext)));
-    return ciphertext;
-  }
+// 打印密文結果
+function announced(ciphertext) {
+  console.info(`凱撒加密：${ciphertext.encoded}，位移數：${ciphertext.displacement}。`);
+  console.info(new Map(Object.entries(ciphertext)));
+  return ciphertext;
 }
 
 

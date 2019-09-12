@@ -13,7 +13,7 @@ module.exports = {
 };
 
 // 新增newError模式 
-class formatError extends Error {
+class FormatError extends Error {
   constructor(msg) {
     super(msg);
   }
@@ -30,7 +30,7 @@ function goodIdeasCinema(receivedata) {
     return sneakPreview(attendance);
   }
   catch (e) {
-    if (e instanceof formatError) return e.message;
+    if (e instanceof FormatError) return e.message;
     return e.message;
   }
   finally {
@@ -43,7 +43,7 @@ function validateData(data) {
   const ELIMINATEDATA = /[^0-9]/;
   const invalidData = ELIMINATEDATA.test(data);
   const validNull = !data.trim();
-  if (invalidData) throw new formatError('格式錯誤，請重新輸入有效的正整數。');
+  if (invalidData) throw new FormatError('格式錯誤，請重新輸入有效的正整數。');
   if (validNull) throw Error('無任何資料，請重新輸入。');
   return Number(data);
 }

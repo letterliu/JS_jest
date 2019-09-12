@@ -19,7 +19,7 @@ describe('質數主程式：primeProgram', () => {
   });
 
   describe('空值與資料格式過濾', () => {
-    it('過濾：輸入值[a,b,9,3,1] => 格式錯誤，請重新輸入有效整數。', () => {
+    it('過濾：輸入值["a", "b", 9, 3, 1] => 格式錯誤，請重新輸入有效整數。', () => {
       const invalidData = ['a', 'b', 9, 3, 1];
       const result = () => Matchers.formatData(invalidData);
       expect(result).toThrow(`輸入值[${invalidData}] => 格式錯誤，請重新輸入有效正整數。`);

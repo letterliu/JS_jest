@@ -15,7 +15,7 @@ module.exports = {
 };
 
 // 新增newError模式
-class formatError extends Error {
+class FormatError extends Error {
   constructor(msg) {
     super(msg);
   }
@@ -34,7 +34,7 @@ function congruentNumber(receivedata) {
     return revealAnswer(answer);
   }
   catch (e) {
-    if (e instanceof formatError) return e.message;
+    if (e instanceof FormatError) return e.message;
     return e.message;
   }
   finally {
@@ -47,7 +47,7 @@ function formatData(data) {
   const validNull = data.map(value => !value.trim()).some(value => value);
   const invalidLength = data.length !== 2;
   if (validNull || invalidLength) {
-    throw new formatError(`[${data}] 帶有空值，請重新輸入兩筆資料。`);
+    throw new FormatError(`[${data}] 帶有空值，請重新輸入兩筆資料。`);
   }
   return data;
 }

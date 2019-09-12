@@ -15,7 +15,7 @@ module.exports = {
 };
 
 // 新增newError模
-class formatError extends Error {
+class FormatError extends Error {
   constructor(msg) {
     super(msg);
   }
@@ -35,7 +35,7 @@ function addendGame(receivedata) {
     return announced(mergeResult);
   }
   catch (e) {
-    if (e instanceof formatError) return e.message;
+    if (e instanceof FormatError) return e.message;
     return e.message;
   }
   finally {
@@ -49,7 +49,7 @@ function formatData(data) {
   const invalidData = data.map(value => ELIMINATEDATA.test(value)).some(value => value);
   const validNull = data.includes('');
   if (invalidData || validNull) {
-    throw new formatError(`輸入值[${data}] => 格式錯誤，請重新輸入有效整數。`);
+    throw new FormatError(`輸入值[${data}] => 格式錯誤，請重新輸入有效整數。`);
   }
   return data.map(value => Number(value));
 }

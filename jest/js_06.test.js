@@ -6,7 +6,7 @@ const Matchers = require('../js_06');
 describe('字母表主程式：alphabetGame', () => {
 
   describe('主程式運作', () => {
-    it('回傳：輸入值[9m88,letter] => 格式錯誤，請重新輸入有效英文字母。', () => {
+    it('回傳：輸入值["9m88","letter"] => 格式錯誤，請重新輸入有效英文字母。', () => {
       const invalidData = ['9m88', 'letter'];
       const result = Matchers.alphabetGame(invalidData);
       expect(result).toContain(`輸入值[${invalidData}] => 格式錯誤，請重新輸入有效英文字母。`);
@@ -16,7 +16,7 @@ describe('字母表主程式：alphabetGame', () => {
       const result = Matchers.alphabetGame(invalidLength);
       expect(result).toContain(`遊戲人數 2 人 => 尚未達標，請重新輸入參與挑戰，共四位英文名字。`);
     });
-    it('回傳：隨機取樣新字母：[l,t,e,p,n,y]，您都唸對了嗎？', () => {
+    it('回傳：隨機取樣新字母：["l","t","e","p","n","y"]，您都唸對了嗎？', () => {
       const members = ['letter', 'nick', 'penny', 'dot'];
       const result = Matchers.alphabetGame(members);
       expect(result).toContain(`隨機取樣新字母：[l,t,e,p,n,y]，您都唸對了嗎？`);
@@ -53,7 +53,7 @@ describe('字母表主程式：alphabetGame', () => {
   });
 
   describe('保留會員姓名奇數字母', () => {
-    it('篩選：[l, t, e, p, n, y]。', () => {
+    it('篩選：["l", "t", "e", "p", "n", "y"]。', () => {
       const goldMembers = ['letter', 'penny'];
       const result = Matchers.oddCharacters(goldMembers);
       expect(result).toEqual(['l', 't', 'e', 'p', 'n', 'y']);

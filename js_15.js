@@ -8,6 +8,14 @@
 並列印出三種器材的個數及總重量。
 */
 
+// Jest
+module.exports = {
+  mayFlower,
+  gymnasium,
+  sortingSystem,
+  announced
+};
+
 const result = mayFlower();
 console.info(new Map(Object.entries(result)));
 
@@ -17,43 +25,41 @@ function mayFlower() {
   const equipment = gymnasium(pieceWeight);
   const grossWeight = sortingSystem(equipment, pieceWeight);
   return announced(equipment, grossWeight);
+}
 
-  // 搬運啞鈴，單槓，跑步機個別總數
-  function gymnasium(pieceWeight) {
-    const max = pieceWeight.length, weightLimit = 1000, equipment = [0, 0, 0];
-    for (let grossWeight = 0, i = 0; grossWeight <= weightLimit; i++) {
-      const randomIndex = Math.floor(Math.random() * max);
-      if (grossWeight + pieceWeight[randomIndex] > weightLimit) {
-        return equipment;
-      }
-      equipment[randomIndex]++;
-      grossWeight += pieceWeight[randomIndex];
+// 搬運啞鈴，單槓，跑步機個別總數
+function gymnasium(pieceWeight) {
+  const max = pieceWeight.length, weightLimit = 1000, equipment = [0, 0, 0];
+  for (let grossWeight = 0, i = 0; grossWeight <= weightLimit; i++) {
+    const randomIndex = Math.floor(Math.random() * max);
+    if (grossWeight + pieceWeight[randomIndex] > weightLimit) {
+      return equipment;
     }
-  }
-
-  // 計算啞鈴，單槓，跑步機總數重量結果
-  function sortingSystem(equipment, pieceWeight) {
-    return equipment.reduce((accumulator, amount, index) => {
-      accumulator[index] = accumulator[index] * amount;
-      return accumulator;
-    }, pieceWeight);
-  }
-
-  // 打印數量與建立物件
-  function announced(equipment, grossWeight) {
-    console.info(`啞鈴總次數：${equipment[0]}`);
-    console.info(`單槓總次數：${equipment[1]}`);
-    console.info(`跑步機總次數：${equipment[2]}`);
-    const sum = grossWeight.reduce((previous, next) => previous + next);
-    return {
-      equipment: equipment,
-      grossWeight: grossWeight,
-      total: sum
-    }
+    equipment[randomIndex]++;
+    grossWeight += pieceWeight[randomIndex];
   }
 }
 
+// 計算啞鈴，單槓，跑步機總數重量結果
+function sortingSystem(equipment, pieceWeight) {
+  return equipment.reduce((accumulator, amount, index) => {
+    accumulator[index] = accumulator[index] * amount;
+    return accumulator;
+  }, pieceWeight);
+}
 
+// 貨運契約保證
+function announced(equipment, grossWeight) {
+  console.info(`啞鈴總次數：${equipment[0]}`);
+  console.info(`單槓總次數：${equipment[1]}`);
+  console.info(`跑步機總次數：${equipment[2]}`);
+  const sum = grossWeight.reduce((previous, next) => previous + next);
+  return {
+    equipment: equipment,
+    grossWeight: grossWeight,
+    total: sum
+  }
+}
 
 // const dumbbellBox = 30, horizontalBarBox = 20, Treadmill = 50;
 

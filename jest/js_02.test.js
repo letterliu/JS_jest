@@ -11,6 +11,11 @@ describe('餘數主程式：congruentNumber', () => {
       const result = Matchers.congruentNumber(validNull);
       expect(result).toContain(`[${validNull}] 帶有空值，請重新輸入兩筆資料。`);
     });
+    it('回傳：[a, b] 格式錯誤，請重新輸入兩個有效的正負整數。', () => {
+      const validData = ['a', 'b'];
+      const result = Matchers.congruentNumber(validData);
+      expect(result).toContain(`[${validData}] 格式錯誤，請重新輸入兩個有效的正負整數。`);
+    });
     it('回傳：殘念！餘數相比出現差異，請試著再挑戰一次。', () => {
       const validData = ['1', '3'];
       const result = Matchers.congruentNumber(validData);

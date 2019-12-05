@@ -53,8 +53,8 @@ function divideMachine(number, roundTime = 0) {
     };
   }
   console.info(`累加次數：${roundTime} 次，=> 尚剩餘值：${number}`);
-  roundTime++;
-  return divideMachine(number / 3, roundTime);
+  // roundTime++;
+  return divideMachine(number / 3, ++roundTime);
 }
 
 // 執行遞迴除法打印結果

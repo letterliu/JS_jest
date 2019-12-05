@@ -6,33 +6,52 @@ const Matchers = require('../js_02');
 describe('餘數主程式：congruentNumber', () => {
 
   describe('主程式運作', () => {
-    it('回傳：帶有空值，請重新輸入兩筆資料。', () => {
+    it('不能輸入""', () => {
       const validNull = ['1', ''];
+
       const result = Matchers.congruentNumber(validNull);
-      expect(result).toContain(`[${validNull}] 帶有空值，請重新輸入兩筆資料。`);
+
+      expect(result).toContain(`FormatError:`);
+      expect(result).toContain(`[${validNull}]`);
+      expect(result).toContain(`空字串`);
+      // expect(result).toContain(`重新輸入兩筆資料`);
     });
-    it('回傳：[a, b] 格式錯誤，請重新輸入兩個有效的正負整數。', () => {
+    it('不能輸入字串', () => {
       const validData = ['a', 'b'];
       const result = Matchers.congruentNumber(validData);
-      expect(result).toContain(`[${validData}] 格式錯誤，請重新輸入兩個有效的正負整數。`);
+      expect(result).toContain(`[${validData}]`);
+      expect(result).toContain(`兩個`);
+      expect(result).toContain(`正負整數`);
     });
-    it('回傳：殘念！餘數相比出現差異，請試著再挑戰一次。', () => {
+    it('餘數不相同，回傳殘念！', () => {
       const validData = ['1', '3'];
       const result = Matchers.congruentNumber(validData);
       expect(result).toContain('殘念！餘數相比出現差異，請試著再挑戰一次。');
     });
-    it('回傳：恭喜！條件符合餘數相同，闖關成功。', () => {
+    it('餘數相同，闖關成功。', () => {
       const validData = ['-2', '-5'];
       const result = Matchers.congruentNumber(validData);
       expect(result).toContain('恭喜！條件符合餘數相同，闖關成功。');
     });
   });
 
-  describe('空值與資料長度過濾', () => {
-    it('過濾：帶有空值，請重新輸入兩筆資料。', () => {
+  describe('空字串與資料長度過濾', () => {
+    it('測試空字串', () => {
       const invalidData = ['1', ' '];
       const result = () => Matchers.formatData(invalidData);
-      expect(result).toThrow(`[${invalidData}] 帶有空值，請重新輸入兩筆資料。`);
+      // expect(result).toThrow(`FormatError:`);
+      expect(result).toThrow(`[${invalidData}]`);
+      expect(result).toThrow(`空字串`);
+      // expect(result).toThrow(`重新輸入兩筆資料`);
+    });
+    it('測試資料長度', () => {
+      const invalidData = ['1'];
+      const result = () => Matchers.formatData(invalidData);
+
+      // expect(result).toThrow(`FormatError:`);
+      expect(result).toThrow(`[${invalidData}]`);
+      // expect(result).toThrow(`空字串`);
+      expect(result).toThrow(`重新輸入兩筆資料`);
     });
   });
 

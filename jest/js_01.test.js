@@ -53,6 +53,8 @@ describe('電影院主程式：goodIdeasCinema', () => {
   });
 })
 
+// dkdk
+
 // import goodIdeasCinema from '../js_01';
 // expect(() => goodIdeasCinema.validateData('z')).toThrow('格式錯誤，請重新輸入有效的正整數。');
 // expect(() => goodIdeasCinema.validateData('')).toThrow('無任何資料，請重新輸入。');
